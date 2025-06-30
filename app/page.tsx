@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation'; // correct place
 import WelcomeBanner from '../components/WelcomeBanner';
 import PostFeed from '../components/PostFeed';
 
@@ -27,7 +28,7 @@ export default function Home() {
   );
 }
 
-// Floating action button for posting
+// Make sure PostFAB is **not** nested inside Home
 function PostFAB() {
   // Replace with your auth logic
   const user = true; // Mock, replace with actual user
