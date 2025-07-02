@@ -1,7 +1,12 @@
 import { createClient } from '@/lib/supabase/server';
 import CommentSection from '@/components/CommentSection';
 
-export default async function PromptLogDetailPage({ params }: { params: { id: string } }) {
+interface PromptLogDetailPageProps {
+  params: { id: string };
+}
+
+export default async function PromptLogDetailPage({ params: paramsPromise }: { params: Promise<{ id: string }> }) {
+  const params = await paramsPromise;
   const { id } = params;
   const supabase = createClient();
 

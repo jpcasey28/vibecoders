@@ -1,7 +1,12 @@
 import { createClient } from '@/lib/supabase/server';
 import CommentSection from '@/components/CommentSection';
 
-export default async function ProjectDetailPage({ params }: { params: { id: string } }) {
+interface ProjectDetailPageProps {
+  params: { id: string };
+}
+
+export default async function ProjectDetailPage({ params: paramsPromise }: { params: Promise<{ id: string }> }) {
+  const params = await paramsPromise;
   const { id } = params;
   const supabase = createClient();
 
