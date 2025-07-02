@@ -12,7 +12,7 @@ export default function PostFAB() {
 
   return (
     <button
-      className="fixed bottom-8 right-8 bg-blue-500 text-white rounded-full p-4 shadow-lg text-3xl"
+      className="fixed bottom-8 right-8 bg-primary hover:bg-primary-focus text-white rounded-full p-4 shadow-lg text-3xl transition-colors"
       title="Post"
       onClick={() => router.push('/prompt-logs/new')}
     >+</button>

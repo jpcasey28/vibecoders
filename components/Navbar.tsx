@@ -2,12 +2,13 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { supabase } from '../lib/supabase';
+import { createClient } from '@/lib/supabase/client';
 import { useRouter } from 'next/navigation';
 
 export default function Navbar() {
   const [user, setUser] = useState<any>(null);
   const router = useRouter();
+  const supabase = createClient();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -33,21 +34,21 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="flex justify-between items-center p-4 bg-white shadow">
+    <nav className="flex justify-between items-center p-4 bg-foreground border-b border-border">
       <div>
-        <Link href="/" className="font-bold text-xl">VibeCoders</Link>
+        <Link href="/" className="font-bold text-xl text-text-primary">VibeCoders</Link>
       </div>
-      <div className="flex gap-4 items-center">
-        <Link href="/about">About</Link>
+      <div className="flex gap-4 items-center text-text-secondary">
+        <Link href="/about" className="hover:text-text-primary transition-colors">About</Link>
         {user ? (
           <>
-            <Link href="/profile">Profile</Link>
-            <button onClick={handleSignOut}>Sign out</button>
+            <Link href="/profile" className="hover:text-text-primary transition-colors">Profile</Link>
+            <button onClick={handleSignOut} className="hover:text-text-primary transition-colors">Sign out</button>
           </>
         ) : (
           <>
-            <Link href="/signin" className="px-4 py-2 bg-blue-500 rounded text-white">Sign in</Link>
-            <Link href="/signup">Sign up</Link>
+            <Link href="/signin" className="px-4 py-2 bg-primary hover:bg-primary-focus rounded text-white transition-colors">Sign in</Link>
+            <Link href="/signup" className="hover:text-text-primary transition-colors">Sign up</Link>
           </>
         )}
       </div>

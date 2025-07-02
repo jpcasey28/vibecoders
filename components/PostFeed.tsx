@@ -1,8 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { supabase } from '../lib/supabase';
 import ProjectCard from './ProjectCard';
+import PromptLogCard from './PromptLogCard';
 
 type Post = {
   id: string;
@@ -15,28 +14,21 @@ type Post = {
   // Add any other fields your posts have
 };
 
-export default function PostFeed({ category }: { category: string }) {
-  const [posts, setPosts] = useState<Post[]>([]);
+export default function PostFeed({ posts, category }: { posts: Post[], category: string }) {
 
-  useEffect(() => {
-    let table = '';
-    if (category === 'Code') table = 'projects';
-    else if (category === 'Prompts' || category === 'Theory') table = 'prompt_logs';
-
-    supabase
-      .from(table)
-      .select('*')
-      .order('created_at', { ascending: false })
-      .then(({ data }) => setPosts(data as Post[] || []));
-  }, [category]);
-
-  if (!posts.length) return <div>No posts yet.</div>;
+  if (!posts || !posts.length) return <div className="text-center text-text-secondary py-8">No posts yet.</div>;
 
   return (
     <div className="flex flex-col gap-4">
-      {posts.map(post => (
-        <ProjectCard key={post.id} post={post} category={category} />
-      ))}
+      {posts.map(post => {
+        if (category === 'Code') {
+          // Assuming you have a ProjectCard component
+          return <ProjectCard key={post.id} post={post} />;
+        } else {
+          return <PromptLogCard key={post.id} post={post} />;
+        }
+      })}
     </div>
   );
 }
+
