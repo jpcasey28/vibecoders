@@ -23,8 +23,8 @@ async function getPosts(category: string) {
     return data;
 }
 
-export default async function Home({ searchParams }: { searchParams: { tab: string } }) {
-  const tab = searchParams.tab || 'Prompts';
+export default async function Home({ searchParams }: { searchParams?: { tab?: string } }) {
+  const { tab = 'Prompts' } = searchParams || {};
   const posts = await getPosts(tab);
 
   return (
