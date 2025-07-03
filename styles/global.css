@@ -4,6 +4,6 @@
 
 @layer base {
   body {
-    /* Background and text color application removed as requested */
+    @apply bg-background text-text-primary;
   }
 }
